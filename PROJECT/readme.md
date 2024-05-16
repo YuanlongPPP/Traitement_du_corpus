@@ -25,7 +25,7 @@ Bien que la description ne spécifie pas explicitement quels modèles ont déjà
 ## Explication de démarche de traitement du corpus (incluant des explications de différents scripts utilisés)  
 
 
-1. Mise en place du dépôt github et créer la structure de dépôté demandée.  
+### 1. Mise en place du dépôt github et créer la structure de dépôté demandée.  
 Nous avons d'abord créé un dépôt nommé "outils_de_traitement_de_corpus". Cependant, à cause du problème de clé ssh, nous n'avons pas eu de solution pour régler le problème et nous avons décidé de créé un autre dépôt nommé "Traitement_du_corpus" pour notre travail.  
 Après la création du dépôt, nous avons utilisé des lignes de commande pour élaborer les différents fichiers en suivant les consignes proposés dans le script création_fichier.py (nous avons ajouté le fichier .gitkeep dans chaque dossier créé afin de les rendre visible sur le git).  
 En utilisant la commande tree PROJECT, nous pouvons visualiser la structure en arbre :  
@@ -47,10 +47,12 @@ PROJECT
     └── model3  
 
 
-2. Extraction des données, nettoyage et convertir vers le csv :  
-2.1. nous avons utilisé le script "extraire_donnée" pour extraire les commentaires sur le site ：  
+### 2. Extraction des données, nettoyage et convertir vers le csv :  
+2.1. nous avons utilisé le script "extraire_donnée" pour extraire les commentaires sur le site ： 
 (a). Importation des bibliothèques : Par exemple, request pour effectuer des requêtes HTTP, "BeautifulSoup" pour parser les documents HTML.  
+
 (b). Fonction de récupérer les données : Cette fonction envoie une requête à l'URL donnée et retourne le  contenu HTML de la page. Si la requête n'est pas réussi, elle renvoie 'None'.  
+
 (c). Fonction pour parser les données : Cette fonction permet d'analyser le contenu et la structure HTML pour extraire le titre du livre, l'auteur, les critiques, et les évaluations. Si l'information de l'évaluation est manquante, on ne prend pas de commentaires. D'ailleurs, il convient de noter que si certaines informations ne sont pas présentes, des valeurs de défaut sont utilisées. Les données sont stockées dans une liste.  
 Cela correspond aux éléments qui est requise à extraire si on s'appuie sur le projet de référence.  
 {   
@@ -69,15 +71,21 @@ Cela correspond aux éléments qui est requise à extraire si on s'appuie sur le
 
 (g). Fonction principale : cette fonction permet de récupérer les données des URL qu'on a sélectionné, analyser les pages pour extraire les informations requises, puis sauvegarder des données dns le fichier JSON.  
 
-2.2. Nous avons utilisé ensuite le script clean_data.py pour nettoyer le corpus : 
+2.2. Nous avons utilisé ensuite le script clean_data.py pour nettoyer le corpus :  
+
 (a). Importation de bibliothèque : on a importé json, os, re et html.  
+
 (b). Charger les données brutes : ces lignes de commandes permettent de charger les données brutes à partir d'un fichier json produit par le 2.1. et les stoken dans la variable "data".  
+
 (c). Définition de la fonction de nettoyage : cette fonction sert à d'abord prendre un texte en entrée et effectue différentes étapes d'opérations de nettoyage :  
+
 Remplacement des HTML  
 Correction des problème d'espace (trop d'espace ou manque d'espace).  
 Uniformation de certaines ponctuations mal formulées.  
 Suppression des barres obliques inverses (\\)  Remarque: je trouve ces symbôles dans le texte brut et je déduit qu'il s'agit de l'hyperlien. Mais il semble qu'au final, il n'a pas été supprimé avec ce script.  
+
 (d). Néttoyage des données : la fonction parcourt chaque partie dans les données brutes, applique la fonction de nettoyage au texte des commentaires, et ne conserve que les critiques qui ont une note. Ces commentaires nettoyées sont concservés dans la liste "donnees_nettoyees".  
+
 (e). Enregistrement des données nettoyées : cette fonction permet d'enregistrer les données néttoyées dans un fichier JSON.  
 
 2.3. Nous avons utilisé le script "csv_fichier" pour convertir le fichier JSON, ainsi on peut avoir un fichier Excel comprenant les colonnes "book_title", "author", "read_review", "rating" et "label".  
@@ -88,8 +96,23 @@ Cependant, le script ne marche pas. Nous avons essayé de comprendre pourquoi et
 Fetching https://www.babelio.com/livres/Rousselet-La-belle-histoire-des-maths/121795/critiques?a=a&pageN=1 is not allowed by robots.txt  
 Error fetching robots.txt from https://www.babelio.com/robots.txt: HTTPSConnectionPool(host='www.babelio.com', port=443): Max retries exceeded with url: /robots.txt (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7fabca007640>: Failed to establish a new connection: [Errno 60] Operation timed out'))  
 ...  
-Nous n'avons donc pas trouvé d'autres solutions qui permet de réaliser ce but de manière automatique, nous avons donc décidé d'extraire les données manuellement (c'est à dire de rajouter des commentaires notamment négatifs et neutres et supprimer ceux qui sont positifs dans le fichier excel converti par ce fichier csv qu'on a élaboré à travers ce script là.), de nettoyage ces données collectés et de convertir le fichier excel en fichier csv. Cela a pour objectif de ne pas empêcher les étapes suivantes bien que nous ne suivions pas exactement les consignes sur le traitement automatique (on y a réussi partiellement).  
+Nous n'avons donc pas trouvé d'autres solutions qui permettent de réaliser ce but de manière automatique, nous avons donc décidé d'extraire les données manuellement (c'est à dire de rajouter des commentaires notamment négatifs et neutres et supprimer ceux qui sont positifs dans le fichier excel converti par ce fichier csv qu'on a élaboré à travers ce script là.), de nettoyage ces données collectés et de convertir le fichier excel en fichier csv. Cela a pour objectif de ne pas empêcher les étapes suivantes bien que nous ne suivions pas exactement les consignes sur le traitement automatique (on y a réussi partiellement).  
 
-3. Analyse morphosyntaxique : 
-Nous avons utilisé le script 
+### 3. Analyse morphosyntaxique : 
+Nous avons utilisé le script "analyse_morphosyntaxe.py" pour faire des analyse sur des données :
+(a). Importation des bibliothèques : importer des bibliothèques nécessaires pour le traitement de données (pandas), l'analyse linguistique ("spacy"), la visualisation ("matplotlib", "seaborn"), et le comptage ("Counter).  
 
+(b). Lecture et conversion des données : cette fonction permet de lire un fichier Excel contenant les informations requises (celui qu'on a modifié à la main), le convertir en fichier CSV, puis charger ce fichier CSV dans un DataFrame "panda".  
+
+(c). Analyse morphosyntaxique :  cette partie charge le modèle linguistique français de Spacy, définit une fonction pour analyser la morphosyntaxe de textes et associe cette fonction à chaque commentaire dans le DataFrame pour extraire les tokens et leurs POS.  
+
+(d). Répartition des étiquettes de POS : ces lignes de commandes permet de compter les occurrences de chaque étiquette POS dans tous les commentaires, les convertir en un DataFrame et créer le graphique pour la visualisation.  
+
+(f). Distribution des étiquette POS par la polarité de sentiment exprimé par le commentaire : cette fonction permet de tracer la distribution des étiquettes POS pour un label de polarité de sentiment exprimé (positif, négatif et neutre) et utilise cette fonction pour créer des graphique pour chaque catégorie de polarité.  VUE ENSEMBLE (chaque graphique montre la distribution de tous les POS dans chaque polarité)
+
+(g). Distribution des étiquettes POS par label dans un DataFrame :  cette fonction est aussi d'illustrer la distribution de POS par label indiqué. Ce qui est différent, c'est qu'il observe la distribution de chaque POS dans chaque catégorie de polarité sélectionné.  
+
+(h). Obtenir les mots les plus fréquents pour chaque étiquette de POS sélectionné : cette fonction permet de définir une fonction pour obtenir les mots les plus fréquents pour une étiquette POS et un label de sentiment spécifiques, puis utilise cette fonction pour obtenir les adjectifs, adverbes, verbes les plus fréquents pour chaque catégorie de polarité. On peut avoir les résultats et les graphiques correspondantes. 
+Remarques : nous n'avons pas trouvé grande chose à partir de ces graphiques (autrement dit, on n'a pas trouvé la régularité sur ces distributions). On suppose que cela est dû au fait qu'on n'a pas effectué des traitements plus profondes sur le corpus. Par exemple, on pourrait supprimer les mots qui sont les plus fréquents, les moins fréquents et les stop words. Nous pourrions le prendre en compte dans l'étape suivante, lors qu'on effectue la recherche sur les mots les plus fréquentes ou faire de sac de mots.  
+
+### 4. 
