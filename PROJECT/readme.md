@@ -99,8 +99,9 @@ Error fetching robots.txt from https://www.babelio.com/robots.txt: HTTPSConnecti
 Nous n'avons donc pas trouvé d'autres solutions qui permettent de réaliser ce but de manière automatique, nous avons donc décidé d'extraire les données manuellement (c'est à dire de rajouter des commentaires notamment négatifs et neutres et supprimer ceux qui sont positifs dans le fichier excel converti par ce fichier csv qu'on a élaboré à travers ce script là.), de nettoyage ces données collectés et de convertir le fichier excel en fichier csv. Cela a pour objectif de ne pas empêcher les étapes suivantes bien que nous ne suivions pas exactement les consignes sur le traitement automatique (on y a réussi partiellement).  
 
 ### 3. Analyse morphosyntaxique : 
-Nous avons utilisé le script "analyse_morphosyntaxe.py" pour faire des analyse sur des données :
-(a). Importation des bibliothèques : importer des bibliothèques nécessaires pour le traitement de données (pandas), l'analyse linguistique ("spacy"), la visualisation ("matplotlib", "seaborn"), et le comptage ("Counter).  
+Nous avons utilisé le script "analyse_morphosyntaxe.py" pour faire des analyse sur des données :  
+
+(a). Importation des bibliothèques : importer des bibliothèques nécessaires pour le traitement de données (pandas), l'analyse linguistique ("spacy"), la visualisation ("matplotlib", "seaborn"), et le comptage ("Counter").  
 
 (b). Lecture et conversion des données : cette fonction permet de lire un fichier Excel contenant les informations requises (celui qu'on a modifié à la main), le convertir en fichier CSV, puis charger ce fichier CSV dans un DataFrame "panda".  
 
