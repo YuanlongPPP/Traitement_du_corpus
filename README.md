@@ -1,8 +1,11 @@
 # outils_de_traitement_de_corpus  
+  
 
-# lien : https://huggingface.co/HuggingFaceH4/starchat2-15b-v0.1  
+## description du projet  
 
-## Abirate/french_book_reviews
+lien : https://huggingface.co/HuggingFaceH4/starchat2-15b-v0.1  
+
+### Abirate/french_book_reviews  
 
 ### Tâche :  
 
@@ -19,3 +22,10 @@ Ce corpus peut servir à des prédictions de sentiment analysis (analyse de sent
 ### à quel modèle il a servi  
 Bien que la description ne spécifie pas explicitement quels modèles ont déjà utilisé ce corpus, il est idéalement adapté pour entraîner des modèles de traitement automatique du langage naturel (TALN) spécialisés dans la classification de texte. Les modèles tels que BERT, RoBERTa ou d'autres architectures basées sur les transformateurs pourraient être utilisés pour traiter ce corpus et effectuer des tâches de classification de sentiment.  
 
+## Explication de démarche de traitement du corpus (incluant des explications de différents scripts utilisés)  
+1. Mise en place du dépôt github et créer la structure de dépôté demandée.  
+Nous avons d'abord créé un dépôt nommé "outils_de_traitement_de_corpus". Cependant, à cause du problème de clé ssh, nous n'avons pas eu de solution pour régler le problème et nous avons décidé de créé un autre dépôt nommé "Traitement_du_corpus" pour notre travail. 
+Après la création du dépôt, nous avons utilisé des lignes de commande pour élaborer les différents fichiers en suivant les consignes proposés en cours : 
+
+
+2. 
