@@ -29,22 +29,23 @@ Bien que la description ne spécifie pas explicitement quels modèles ont déjà
 Nous avons d'abord créé un dépôt nommé "outils_de_traitement_de_corpus". Cependant, à cause du problème de clé ssh, nous n'avons pas eu de solution pour régler le problème et nous avons décidé de créé un autre dépôt nommé "Traitement_du_corpus" pour notre travail. 
 Après la création du dépôt, nous avons utilisé des lignes de commande pour élaborer les différents fichiers en suivant les consignes proposés dans le script création_fichier.py (nous avons ajouté le fichier .gitkeep dans chaque dossier créé afin de les rendre visible sur le git).  
 En utilisant la commande tree PROJECT, nous pouvons visualiser la structure en arbre : 
-PROJECT
-├── LICENSE
-├── Makefile
-├── README.md
-├── bin
-├── data
-│   ├── clean
-│   └── raw
-├── figures
-├── scripts
-│   ├── plot
-│   └── process
-└── src
-    ├── model1
-    ├── model2
-    └── model3
+PROJECT  
+├── LICENSE  
+├── Makefile  
+├── README.md  
+├── bin  
+├── data  
+│   ├── clean  
+│   └── raw  
+├── figures  
+├── scripts  
+│   ├── plot  
+│   └── process  
+└── src  
+    ├── model1  
+    ├── model2  
+    └── model3  
+
 
 2. Extraction des données, nettoyage et convertir vers le csv :  
 2.1.  
