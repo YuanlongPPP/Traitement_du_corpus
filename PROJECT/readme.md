@@ -116,4 +116,94 @@ Nous avons utilisé le script "analyse_morphosyntaxe.py" pour faire des analyse 
 (h). Obtenir les mots les plus fréquents pour chaque étiquette de POS sélectionné : cette fonction permet de définir une fonction pour obtenir les mots les plus fréquents pour une étiquette POS et un label de sentiment spécifiques, puis utilise cette fonction pour obtenir les adjectifs, adverbes, verbes les plus fréquents pour chaque catégorie de polarité. On peut avoir les résultats et les graphiques correspondantes. 
 Remarques : nous n'avons pas trouvé grande chose à partir de ces graphiques (autrement dit, on n'a pas trouvé la régularité sur ces distributions). On suppose que cela est dû au fait qu'on n'a pas effectué des traitements plus profondes sur le corpus. Par exemple, on pourrait supprimer les mots qui sont les plus fréquents, les moins fréquents et les stop words. Nous pourrions le prendre en compte dans l'étape suivante, lors qu'on effectue la recherche sur les mots les plus fréquentes ou faire de sac de mots.  
 
-### 4. 
+### 4. statistique et mesure  
+
+Nous avons utilisé le script "statistique_et_mesure" pour proposer des analyses statistiques et faire la visualisation des données. Nous illustrons et expliquons le script comme suit :  
+
+1. La première partie consiste à calculer la longueur de chaque critique et affiche un histogramme de la distribution des longueurs des critiques, avec le nombre de critique sur l'axe des ordonnées et la longueur des critiques sur l'axe des abscisses.  
+
+2. Cette partie est conçu pour tracer un graphique de dispersion entre la longueur des commentaires et les notes.  
+
+3. Cette partie est pour créer le graphique de Zipf pour le corpus en tout.  
+
+4. Cette partie est créée pour le graphique de Zipf pour chaque catégiorie de polarité : positif, négatif et neutre.  
+
+5. Cette partie a pour objectif de calculer la fréquence de mots et afficher les 10 mots les plus fréquents.  
+
+6. Cette partie sert à obtenir les mots les plus fréquents pour chaque étiquette (positif, neutre et négatif) et les affiche.  
+
+7. Cette partie permet de calculer les longueurs des phrases et enfin la longueur moyenne des phrases.  
+
+8. Cette partie permet de calculer la longueur moyenne des phrases par catégorie (label).  
+
+9. Les parties suivantes sont pour voir si le calcul est couteau. Et nous pensons que non après avoir vérifié avec le script. Nous avons donc créé le script permettant l'utilisation de la fonction réutilisable.  
+
+### 5. Evaluation  
+
+Nous avons d'abord essayé d'évaluer la corrélation entre la longueur de commentaires et la note et le p-value est 0. Nous avons donc voir la distribution de mots les plus fréquents. Cependant, nous avons remarquer qu'il faut supprimer les mots qui ont la fréquence la plus haute et la plus basse, nous avons procédé donc au score TF-IDF en supprimant les stopwords et les ponctuations afin de voir les mots les plus fréquents.  
+
+Par la suite, nous avons sélectionné "bien" et voir la corrélation entre son nombre d'occurrences et la classification de critiques.  Et ensuite, nous avons essayé d'augmenter le P-value en supprimant les données abérantes et augmentant les données.  
+
+Finalement, nous avons utilisé différentes métriques (métriques génériques, métriques adaptés à la tâche) tout en proposant une métrique à mon corpus.  
+
+### Docker  
+
+Tous les dossiers et fichiers nécessaires et concernés sont conservés dans le dossier Docker->process->script.  
+
+### La structure de la version finale pourrait être :  
+
+├── PROJECT  
+│   ├── LICENSE  
+│   ├── Makefile  
+│   ├── README.md  
+│   ├── bin  
+│   ├── data  
+│   │   ├── clean  
+│   │   │   ├── clean_data  
+│   │   │   │   └── cleaned_reviews.json  
+│   │   │   └── fichier_csv  
+│   │   │       ├── book_reviews.csv  
+│   │   │       └── version modifiée  
+│   │   │           ├── book_review_2.0.csv  
+│   │   │           └── book_review_2.0.xlsx  
+│   │   └── raw  
+│   │       └── reviews_with_ratings.json  
+│   ├── dataset_projet.yaml  
+│   ├── figures  
+│   ├── scripts  
+│   │   ├── plot  
+│   │   └── process  
+│   │       ├── Docker  
+│   │       │   ├── Dockerfile  
+│   │       │   ├── book_review_2.0.xlsx  
+│   │       │   ├── entrypoint.sh  
+│   │       │   ├── explication_docker.py  
+│   │       │   └── insert_data.py  
+│   │       ├── analyse_morphosyntaxe.ipynb  
+│   │       ├── clean_data.ipynb  
+│   │       ├── csv_fichier.ipynb  
+│   │       ├── évaluation.ipynb  
+│   │       ├── extraire_donnée.ipynb  
+│   │       ├── extraire_donnée_V2.ipynb  
+│   │       ├── résultat_évaluation  
+│   │       │   ├── dev_data.csv  
+│   │       │   ├── test_data.csv  
+│   │       │   └── train_data.csv  
+│   │       ├── résultats_statistique_et_mesure  
+│   │       │   └── text_statistics.json  
+│   │       └── statistique_et_mesure.ipynb  
+│   └── src  
+│       ├── model1  
+│       ├── model2  
+│       └── model3  
+└── création_fichier.py  
+
+### Limite de travail :  
+En observant les résultats qu'on a obtenus, nous avons trouvé que la performance n'est pas de bonne qualité, nous essayons de déduire les raisons qui conduisent à cela en plusieurs aspects :  
+
+(1).  Les données ne sont pas de grandes quantités. c'est ainsi qu'on arrive pas à trouver les mots représentatifs et caratérisés pour chaque catégorie de polarité de sentiment. Nous trouvons aussi que les lecteurs des livres ont proposé différentes expressions d'exprimer leurs sentiments (les vocabulaires sont assez riches et variées.).  Il est aussi essentiel de considérer la diversité linguistique et les variations dans les expressions de sentiment selon les groupes démographiques. La manière dont les sentiments sont exprimés peut varier en fonction de l’âge, du contexte culturel, ou même de milieu social des individus.  
+-> perspectives : augmenter le volume du corpus et diviser le corpus en vue d'entrainement en groupes.  
+
+(2). La méthode de division du corpus peuvent être améliorée.  
+ -> perspective : on pourrait utiliser la validation croisée.  
+  
