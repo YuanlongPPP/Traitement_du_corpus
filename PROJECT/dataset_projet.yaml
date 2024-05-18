@@ -1,0 +1,21 @@
+dataset_name: "Book Reviews Classification"
+creator: Yuanlong PENG 
+creation_date: "2024-05"
+
+description: |
+  Ce dataset classifie les critiques de livres en trois catégories : "positif", "neutre" et "negatif".
+    Les critiques sont extraites de diverses livres du site babelio et classées selon les notes attribuées à chaque critique.  
+
+
+features: 
+  - book_title: Titre du livre
+  - author: Auteur du livre
+  - reader_review: Texte de la critique du lecteur
+  - rating: Note attribuée au livre
+  - label: Catégorie de la critique
+  
+
+classes: 
+  - positif
+  - neutre
+  - negatif
